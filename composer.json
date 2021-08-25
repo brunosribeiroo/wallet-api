@@ -1,0 +1,22 @@
+{
+    "name": "brunosribeiro/wallet-api",
+    "description": "Uma API de carteira online, com cadastro de usu\u0000rios e lan\u0000amento de transa\u0000\u0000es.",
+    "type": "project",
+    "autoload": {
+        "classmap": ["scr/"],
+        "psr-4": {
+            "Brunosribeiro\\WalletApi\\": "scr/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bruno Ribeiro",
+            "email": "brunosribeiro@live.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpmd/phpmd": "^2.10",
+        "squizlabs/php_codesniffer": "*"
+    }
+}
