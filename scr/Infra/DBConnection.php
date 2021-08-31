@@ -2,6 +2,7 @@
 
 namespace Brunosribeiro\WalletApi\Infra;
 
+use Error;
 use PDO;
 
 class DBConnection
@@ -17,15 +18,20 @@ class DBConnection
 
     public function get()
     {
-        if($this->connection == null)
-        {
-            $conn = new PDO('mysql:host='.$this->host.';dbname='.$this->database, $this->user, $this->pass);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conn->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
-            $this->connection = $conn;
-            return $this->connection;
-        } else {
-            return $this->connection;
+        try{
+            if($this->connection == null)
+            {
+                $driver = 'mysql:host='.$this->host.';dbname='.$this->database;
+                $conn = new PDO($driver, $this->user, $this->pass);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $conn->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
+                $this->connection = $conn;
+                return $this->connection;
+            } else {
+                return $this->connection;
+            }
+        } catch(PDOException $e){
+            throw new Error('Erro ao se conectar ao DB ' . $e->getMessage(), 1);
         }
     }
 }

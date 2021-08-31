@@ -2,6 +2,9 @@
 
 namespace Brunosribeiro\WalletApi\Repository;
 
+use Error;
+use Exception;
+
 class UserRepository
 {
     public function __construct($db)
@@ -9,25 +12,15 @@ class UserRepository
         $this->db = $db;
     }
 
-    public function createTable()
+    public function addUser($user)
     {
-        // $data = $this->db->query(
-        //     'CREATE TABLE users (
-        //     id INT AUTO_INCREMENT,
-        //     name varchar(240) NOT NULL,
-        //     nickname varchar(240) NOT NULL,
-        //     PRIMARY KEY (id)
-        //     )'
-        // );
-
-        $data = $this->db->exec('CREATE TABLE users (
-            id INT AUTO_INCREMENT,
-            name varchar(240) NOT NULL,
-            nickname varchar(240) NOT NULL,
-            PRIMARY KEY (id)
-            )');
-
-        echo $data;
-        return true;
+        try{
+            $query = 'INSERT INTO users (name, nickname) VALUES (?,?)';
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute([$user['name'], $user['nickname']]);
+            return true;
+        } catch(PDOException $e){
+            throw new Error('Errro ao adicionar usuário no DB ' . $e->getMessage());
+        }
     }
 }
