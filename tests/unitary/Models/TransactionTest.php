@@ -1,6 +1,6 @@
 <?php
 
-namespace Brunosribeiro\WalletApi\Test\Services;
+namespace Brunosribeiro\WalletApi\Test\Services\Models;
 
 use Brunosribeiro\WalletApi\Models\Transaction;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,6 @@ class TransactionTest extends TestCase
         $transaction->setUser('Teste');
         $transaction->setType('entrada');
         $transaction->setValue('120.58');
-        echo json_encode($transaction);
         $this->assertEquals('Teste', $transaction->user);
     }
 

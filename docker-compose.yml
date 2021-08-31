@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+    app:
+        build: .
+        command: php -S 0.0.0.0:9000 -t /var/www/html/
+        ports:
+            - "9000:9000"
+        volumes: 
+            - .:/var/www/html/
+        networks: 
+            - server    
+
+
+    db:
+            image: mysql
+            environment:
+                MYSQL_ROOT_PASSWORD: admin
+                MYSQL_USER: admin      
+                MYSQL_PASSWORD: admin   
+                MYSQL_DATABASE: wallet
+            ports: 
+                - "3306:3306"
+            networks: 
+                - server 
+
+
+networks: 
+    server:
+        driver: bridge 

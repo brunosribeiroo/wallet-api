@@ -18,5 +18,8 @@
         "phpunit/phpunit": "^9.5",
         "phpmd/phpmd": "^2.10",
         "squizlabs/php_codesniffer": "*"
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.3"
     }
 }

@@ -9,9 +9,9 @@ class Transaction
 
     public function __construct()
     {
-        $this->user = '';
-        $this->type = '';
-        $this->value = '';
+        $this->user = null;
+        $this->type = null;
+        $this->value = null;
     }
 
     private function getTypes()
@@ -39,9 +39,6 @@ class Transaction
     {
         $regex = '/[a-zA-Z]+|,/';
         if(preg_match_all($regex, $value) == 1) throw new Error('Valor inválido, envie no formato 100.00');
-        /* Adicionar a condição de entrada ou retirada, e caso retirada, converter o valor para negativo
-        *
-        **/
         $formattedValue = number_format($value, '2', ',', '');
         $this->value = $formattedValue;
         return true;

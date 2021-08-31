@@ -1,6 +1,6 @@
 <?php
 
-namespace Brunosribeiro\WalletApi\Test\Services;
+namespace Brunosribeiro\WalletApi\Test\Services\Models;
 
 require 'vendor/autoload.php';
 
