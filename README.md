@@ -1,4 +1,4 @@
-# Wallet-api
+# Wallet-api [EM DESENVOLVIMENTO]
 API de carteira online em PHP, que registra usuários, transações, e faz consulta de saldo e extrato por período.
 
 ## Tecnologias/Ferramentas
@@ -33,3 +33,4 @@ Requisitos
 ## Testes
 Execute no terminal <br />
 ```./vendor/bin/phpunit --colors ./tests```
+
