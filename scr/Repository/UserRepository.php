@@ -3,7 +3,7 @@
 namespace Brunosribeiro\WalletApi\Repository;
 
 use Error;
-use Exception;
+use PDOException;
 
 class UserRepository
 {
@@ -20,7 +20,29 @@ class UserRepository
             $stmt->execute([$user['name'], $user['nickname']]);
             return true;
         } catch(PDOException $e){
-            throw new Error('Errro ao adicionar usuário no DB ' . $e->getMessage());
+            throw new Error('Erro ao adicionar usuário no DB ' . $e->getMessage());
+        }
+    }
+
+    public function editUserById($id, $data)
+    {
+        try{
+            $columns = [];
+            if (count($data) < 2 ) {
+                $columns = implode(',', array_keys($data)) . " = ?";
+                $values = array_values($data);
+            } else {
+                $columns = implode(' = ? , ', array_keys($data));
+                $columns = $columns . " = ?";
+                $values = array_values($data);
+            }
+            array_push($values, $id);
+            $query = "UPDATE users SET " . $columns . " WHERE id = ?";
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute($values);
+            return true;
+        } catch(PDOException $e){
+                throw new Error('Erro ao editar usuário no DB ' . $e->getMessage());
         }
     }
 }

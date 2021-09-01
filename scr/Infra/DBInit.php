@@ -14,7 +14,9 @@ class iniciaDB
             id INT AUTO_INCREMENT,
             name varchar(240) NOT NULL,
             nickname varchar(240) NOT NULL UNIQUE,
+            deleted boolean,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (id)
         );',
         'CREATE TABLE IF NOT EXISTS transactions (
@@ -27,9 +29,9 @@ class iniciaDB
             FOREIGN KEY(id_user) REFERENCES users (id)
         );',    
     
-        'INSERT INTO users (id, name, nickname) VALUES
-            (1, "Bruno", "brunoribeiro"),
-            (2, "Bruce", "batman");
+        'INSERT INTO users (id, name, nickname, deleted) VALUES
+            (1, "Bruno", "brunoribeiro", false),
+            (2, "Bruce", "batman", false);
         ',
         'INSERT INTO transactions (id_user, type, value) VALUES
             (1, "entrada", 500.00),

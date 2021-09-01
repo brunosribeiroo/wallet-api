@@ -16,6 +16,7 @@ class UserTest extends TestCase
         $user = new User();
         $user->setName('Teste');
         $user->setNickName('testando');
+        $user->setDeleted(true);
         $this->assertEquals('Teste', $user->name);
     }
 
@@ -29,7 +30,7 @@ class UserTest extends TestCase
     function testSetNameComParametroInvalido()
     {
         $user = new User();
-        $this->expectExceptionMessage('Nome inválido');
+        $this->expectExceptionMessage('Nome inválido, tente com mais caractéres');
         $user->setName('te');
     }
 
@@ -43,8 +44,22 @@ class UserTest extends TestCase
     function testSetNickNameComParametroInvalido()
     {
         $user = new User();
-        $this->expectExceptionMessage('Nickname inválido');
+        $this->expectExceptionMessage('Nickname inválido, tente com mais caractéres');
         $user->setNickName('te');
     }
+
+    function testSetDeleted()
+    {
+        $user = new User();
+        $setDel = $user->setDeleted('teste');
+        $this->assertEquals(true, $setDel);
+    }
+
+    // function testSetDeletedComParametroInvalido()
+    // {
+    //     $user = new User();
+    //     $this->expectExceptionMessage('Parâmetro inválido ao deletar, informe TRUE ou FALSE');
+    //     $user->setDeleted('teste');
+    // }
 
 }
