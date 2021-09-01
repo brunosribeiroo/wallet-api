@@ -9,7 +9,7 @@ class Transaction
 
     public function __construct()
     {
-        $this->user = null;
+        $this->id_user = null;
         $this->type = null;
         $this->value = null;
     }
@@ -23,7 +23,7 @@ class Transaction
     public function setUser($user)
     {
         if(strlen($user) < 3) throw new Error('Usuário inválido');
-        $this->user = $user;
+        $this->id_user = $user;
         return true;
     }
 

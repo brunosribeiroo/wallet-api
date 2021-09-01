@@ -14,7 +14,7 @@ class TransactionTest extends TestCase
         $transaction->setUser('Teste');
         $transaction->setType('entrada');
         $transaction->setValue('120.58');
-        $this->assertEquals('Teste', $transaction->user);
+        $this->assertEquals('Teste', $transaction->id_user);
     }
 
     function testSetUser()
