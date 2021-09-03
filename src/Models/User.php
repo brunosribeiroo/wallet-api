@@ -10,7 +10,7 @@ class User {
     {
         $this->name = '';
         $this->nickName = '';
-        $this->deleted = false;
+        $this->deleted = 0;
     }
 
     public function setName($name)
@@ -29,13 +29,12 @@ class User {
 
     public function setDeleted($deleted)
     {
-        if($deleted == false || $deleted == 'false' ||$deleted == true || $deleted == 'true'){
-            if($deleted == 'false') $deleted = false;
-            if($deleted == 'true') $deleted == true;
+        if ($deleted == 0 || $deleted == 1) {
             $this->deleted = $deleted;
             return true;
-        } 
-        throw new Error('Parâmetro inválido ao deletar, informe TRUE ou FALSE');
+        } else {
+            throw new Error('Parâmetro inválido ao deletar, informe true ou false');
+        }
     }
 
 }

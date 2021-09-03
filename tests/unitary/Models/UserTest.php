@@ -51,15 +51,16 @@ class UserTest extends TestCase
     function testSetDeleted()
     {
         $user = new User();
-        $setDel = $user->setDeleted('teste');
+        $setDel = $user->setDeleted(1);
+        echo $user->deleted;
         $this->assertEquals(true, $setDel);
     }
 
-    // function testSetDeletedComParametroInvalido()
-    // {
-    //     $user = new User();
-    //     $this->expectExceptionMessage('Parâmetro inválido ao deletar, informe TRUE ou FALSE');
-    //     $user->setDeleted('teste');
-    // }
+    function testSetDeletedComParametroInvalido()
+    {
+        $user = new User();
+        $this->expectExceptionMessage('Parâmetro inválido ao deletar, informe true ou false');
+        $user->setDeleted('teste');
+    }
 
 }
