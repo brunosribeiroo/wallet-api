@@ -14,6 +14,9 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 Requisitos
 1. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/php/php.png"></code> [PHP 7.4](https://www.php.net/downloads.php)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0b7ca9edb7b3f7d07d80182bce839b1ae8c7a35b
 2. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/composer/composer.png"></code> [Composer](https://getcomposer.org/download/)
 3. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/docker/docker.png"></code> [Docker](https://www.docker.com/products/docker-desktop)
 
@@ -34,6 +37,4 @@ Requisitos
 ## Testes
 Execute no terminal <br />
 ```./vendor/bin/phpunit --colors ./tests```
-=======
-2. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/docker/docker.png"></code> [Docker Desktop](https://www.docker.com/products/docker-desktop)
->>>>>>> 5d439f3aa350a1423a9a5c0fafb7212e17b5a01d
+
