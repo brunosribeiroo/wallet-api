@@ -30,8 +30,9 @@ class iniciaDB
         );',    
     
         'INSERT INTO users (id, name, nickname, deleted) VALUES
-            (1, "Bruno", "brunoribeiro", false),
-            (2, "Bruce", "batman", false);
+            (1, "Bruno", "brunoribeiro", 0),
+            (2, "Bruce", "batman", 0),
+            (3, "Walter White", "Heisenberg", 0)
         ',
         'INSERT INTO transactions (id_user, type, value) VALUES
             (1, "entrada", 500.00),

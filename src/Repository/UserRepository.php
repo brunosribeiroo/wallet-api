@@ -3,6 +3,7 @@
 namespace Brunosribeiro\WalletApi\Repository;
 
 use Error;
+use PDO;
 use PDOException;
 
 class UserRepository
@@ -15,9 +16,9 @@ class UserRepository
     public function addUser($user)
     {
         try{
-            $query = 'INSERT INTO users (name, nickname) VALUES (?,?)';
+            $query = 'INSERT INTO users (name, nickname, deleted) VALUES (?,?,?)';
             $stmt = $this->db->get()->prepare($query);
-            $stmt->execute([$user['name'], $user['nickname']]);
+            $stmt->execute([$user['name'], $user['nickname'], $user['deleted']]);
             return true;
         } catch(PDOException $e){
             throw new Error('Erro ao adicionar usuário no DB ' . $e->getMessage());
@@ -43,6 +44,33 @@ class UserRepository
             return true;
         } catch(PDOException $e){
                 throw new Error('Erro ao editar usuário no DB ' . $e->getMessage());
+        }
+    }
+
+    public function getAllUsers()
+    {
+        try{
+            $query = 'SELECT id, name, nickname FROM users WHERE deleted = 0';
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch(PDOException $e){
+            throw new Error('Erro ao buscar todos os usuários no DB ' . $e->getMessage());
+        }
+    }
+
+    public function getUserById($id)
+    {
+        try{
+            $query = 'SELECT id, name, nickname FROM users WHERE id = ? AND deleted = 0';
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute([$id]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($result == null) return null;
+            return $result;
+        } catch(PDOException $e){
+            throw new Error('Erro ao buscar o usuário por ID no DB ' . $e->getMessage());
         }
     }
 }

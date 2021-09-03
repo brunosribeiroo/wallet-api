@@ -3,9 +3,9 @@
     "description": "Uma API de carteira online, com cadastro de usu\u0000rios e lan\u0000amento de transa\u0000\u0000es.",
     "type": "project",
     "autoload": {
-        "classmap": ["scr/"],
+        "classmap": ["src/"],
         "psr-4": {
-            "Brunosribeiro\\WalletApi\\": "scr/"
+            "Brunosribeiro\\WalletApi\\": "src/"
         }
     },
     "authors": [
