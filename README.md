@@ -13,10 +13,6 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 ## Configurando Ambiente 
 Requisitos
 1. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/php/php.png"></code> [PHP 7.4](https://www.php.net/downloads.php)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0b7ca9edb7b3f7d07d80182bce839b1ae8c7a35b
 2. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/composer/composer.png"></code> [Composer](https://getcomposer.org/download/)
 3. <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/docker/docker.png"></code> [Docker](https://www.docker.com/products/docker-desktop)
 
