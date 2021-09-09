@@ -73,4 +73,32 @@ class UserRepository
             throw new Error('Erro ao buscar o usuário por ID no DB ' . $e->getMessage());
         }
     }
+
+    public function getUserByNickname($nick)
+    {
+        try{
+            $query = 'SELECT id, name, nickname FROM users WHERE nickname = ? AND deleted = 0';
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute([$nick]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($result == null) return null;
+            return $result;
+        } catch (PDOException $e) {
+            throw new Error('Erro ao buscar o usuário por nickname no DB ' . $e->getMessage());
+        }
+    }
+
+    public function getUserByName($name)
+    {
+        try{
+            $query = 'SELECT id, name, nickname FROM users WHERE name = ? AND deleted = 0';
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute([$name]);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result == null) return null;
+            return $result;
+        } catch (PDOException $e) {
+            throw new Error('Erro ao buscar o usuário por nome no DB ' . $e->getMessage());
+        }
+    }
 }

@@ -19,7 +19,7 @@ class UserServices
             $result = $userRepo->getAllUsers();
             return json_encode($result);
         } catch (Error $e) {
-            throw new Error('Erro ao buscar todos usuários em Services ' . $e);
+            throw new Error($e);
         }
     }
 
@@ -28,10 +28,10 @@ class UserServices
         try{
             $userRepo = new UserRepository($this->db);
             $result = $userRepo->getUserById($id);
-            if($result == null) return null;
+            if($result == null) return 'Usuário não encontrado';
             return json_encode($result);
-        } catch (Error $e) {
-            throw new Error('Erro ao buscar o usuário por ID em Services ' . $e);
+        } catch (Error $error) {
+            throw new Error($error);
         }
     }
 
@@ -41,8 +41,43 @@ class UserServices
             $userRepo = new UserRepository($this->db);
             $result = $userRepo->addUser($user);
             return $result;
-        } catch (Error $e) {
-            throw new Error('Erro ao adicionar usuário em Services ' . $e);
+        } catch (Error $error) {
+            throw new Error($error);
+        }
+    }
+
+    public function getUserByNickname($nick)
+    {
+        try{
+            $userRepo = new UserRepository($this->db);
+            $result = $userRepo->getUserByNickname($nick);
+            if($result == null) return 'Usuario nao encontrado';
+            return json_encode($result);
+        } catch (Error $error) {
+            throw new Error($error);
+        }
+    }
+
+    public function getUserByName($name)
+    {
+        try{
+            $userRepo = new UserRepository($this->db);
+            $result = $userRepo->getUserByName($name);
+            if($result == null) return 'Usuario nao encontrado';
+            return json_encode($result);
+        } catch (Error $error){
+            throw new Error($error);
+        }
+    }
+
+    public function editUserById($id, $data)
+    {
+        try{
+            $userRepo = new UserRepository($this->db);
+            $result = $userRepo->editUserById($id, $data);
+            return $result;
+        } catch (Error $error){
+            throw new Error($error);
         }
     }
 }
