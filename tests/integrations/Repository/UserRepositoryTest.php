@@ -38,7 +38,7 @@ class UserRepositoryTest extends TestCase
     {
         $user = [
             'name' => 'walter',
-            'nickname' => 'white',
+            'nickname' => 'heisenberg',
             'deleted' => 0
         ];
         $userRepo = new UserRepository($this->connection());
@@ -99,6 +99,34 @@ class UserRepositoryTest extends TestCase
     {
         $userRepo = new UserRepository($this->connection());
         $result = $userRepo->getUserById(1321651);
+        $this->assertNull($result);
+    }
+
+    function testGetUserByNickname()
+    {
+        $userRepo = new UserRepository($this->connection());
+        $result = $userRepo->getUserByNickname('heisenberg');
+        $this->assertEquals('Heisenberg', $result['nickname']);
+    }
+
+    function testGetUserByNicknameComNicknameInexistente()
+    {
+        $userRepo = new UserRepository($this->connection());
+        $result = $userRepo->getUserByNickname('esse nao existe');
+        $this->assertNull($result);
+    }
+
+    function testGetUserByName()
+    {
+        $userRepo = new UserRepository($this->connection());
+        $result = $userRepo->getUserByName('walter white');
+        $this->assertEquals('Walter White', $result[0]['name']);
+    }
+
+    function testGetUserByNameComNomeInexistente()
+    {
+        $userRepo = new UserRepository($this->connection());
+        $result = $userRepo->getUserByName('esse nome nao tem');
         $this->assertNull($result);
     }
 }
