@@ -32,5 +32,5 @@ Requisitos
 
 ## Testes
 Execute no terminal <br />
-```./vendor/bin/phpunit --colors ./tests```
+```php ./vendor/bin/phpunit --colors ./tests```
 
