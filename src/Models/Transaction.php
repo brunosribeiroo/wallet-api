@@ -37,8 +37,9 @@ class Transaction
 
     public function setValue($value)
     {
-        $regex = '/[a-zA-Z]+|,/';
-        if(preg_match_all($regex, $value) == 1) throw new Error('Valor inválido, envie no formato 100.00');
+        $regex = '/[a-zA-Z-+]+|,/';
+        if(preg_match_all($regex, $value) == 1) throw new Error('Valor inválido, insira no formato 100.00');
+        if($value <= 0) throw new Error('Valor inválido, insira um valor maior que 0');
         $formattedValue = number_format($value, '2', ',', '');
         $this->value = $formattedValue;
         return true;
