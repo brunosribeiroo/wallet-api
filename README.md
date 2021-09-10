@@ -34,3 +34,7 @@ Requisitos
 Execute no terminal <br />
 ```php ./vendor/bin/phpunit --colors ./tests```
 
+-------------------------------------------------------------------------------------------------------
+### Observação
+Acesse a [página inicial](http://localhost:9000/) para carregar o banco de dados.
+

@@ -48,14 +48,28 @@ class TransactionTest extends TestCase
     function testSetValue()
     {
         $transaction = new Transaction();
-        $setValue = $transaction->setValue('1582.20');
+        $setValue = $transaction->setValue('100.00');
         $this->assertEquals(true, $setValue);
     }
 
     function testSetValueComParametroInvalido()
     {
         $transaction = new Transaction();
-        $this->expectExceptionMessage('Valor inválido, envie no formato 100.00');
+        $this->expectExceptionMessage('Valor inválido, insira no formato 100.00');
         $transaction->setValue('125.b0');
+    }
+
+    function testSetValueComParametroNegativo()
+    {
+        $transaction = new Transaction();
+        $this->expectExceptionMessage('Valor inválido, insira no formato 100.00');
+        $transaction->setValue('-125.00');
+    }
+
+    function testSetValueComParametroZerado()
+    {
+        $transaction = new Transaction();
+        $this->expectExceptionMessage('Valor inválido, insira um valor maior que 0');
+        $transaction->setValue('0');
     }
 }

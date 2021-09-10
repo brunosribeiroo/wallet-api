@@ -13,16 +13,16 @@ services:
 
 
     db:
-            image: mysql
-            environment:
-                MYSQL_ROOT_PASSWORD: admin
-                MYSQL_USER: admin      
-                MYSQL_PASSWORD: admin   
-                MYSQL_DATABASE: wallet
-            ports: 
-                - "3306:3306"
-            networks: 
-                - server 
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: admin
+            MYSQL_USER: admin      
+            MYSQL_PASSWORD: admin   
+            MYSQL_DATABASE: wallet
+        ports: 
+            - "3306:3306"
+        networks: 
+            - server 
 
 
 networks: 
