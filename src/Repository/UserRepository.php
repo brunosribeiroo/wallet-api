@@ -18,7 +18,7 @@ class UserRepository
         try{
             $query = 'INSERT INTO users (name, nickname, deleted) VALUES (?,?,?)';
             $stmt = $this->db->get()->prepare($query);
-            $stmt->execute([$user['name'], $user['nickname'], $user['deleted']]);
+            $stmt->execute([$user->name, $user->nickname, $user->deleted]);
             return true;
         } catch(PDOException $e){
             throw new Error('Erro ao adicionar usuário no DB ' . $e->getMessage());
@@ -43,7 +43,7 @@ class UserRepository
             $stmt->execute($values);
             return true;
         } catch(PDOException $e){
-                throw new Error('Erro ao editar usuário no DB ' . $e->getMessage());
+            throw new Error('Erro ao editar usuário no DB ' . $e->getMessage());
         }
     }
 

@@ -39,8 +39,8 @@ class UserServices
     {
         try{
             $userRepo = new UserRepository($this->db);
-            $result = $userRepo->addUser($user);
-            return $result;
+            $userRepo->addUser($user);
+            return 'Usuário adicionado com sucesso!';
         } catch (Error $error) {
             throw new Error($error);
         }

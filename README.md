@@ -7,8 +7,19 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 - Docker
 - PHPUnit - Testes
 
-## Funções
- - 
+-------------------------------------------------------------------------------------------------------
+
+## Rotas
+### USER
+- Buscar todos os usuários: GET [/usuarios](http://localhost:9000/usuarios)
+- Buscar usuário por ID: GET [/usuario/ID](http://localhost:9000/usuario/1)
+- Buscar usuário por Nickname: GET [/usuario/nickname/NICKNAME](http://localhost:9000/usuario/nickname/brunoribeiro)
+- Buscar usuário por Nome: GET [/usuario/nome/NOME](http://localhost:9000/usuario/name/bruno)
+- Adicionar usuário: POST [/usuario](http://localhost:9000/usuario) - body: {name: 'name', nickname: 'nickname'}
+- Editar usuário: POST [/usuario/ID](http://localhost:9000/usuario/1) - body: {name: 'name', nickname: 'nickname'}
+
+
+ -------------------------------------------------------------------------------------------------------
 
 ## Configurando Ambiente 
 Requisitos
