@@ -24,7 +24,7 @@ class UserRepositoryTest extends TestCase
     {
         $paramsRandom = new ParamsRandom();
         $nickname = $paramsRandom->stringRandom();
-        $user = [
+        $user = (object) [
             'name' => 'testando',
             'nickname' => $nickname,
             'deleted' => 0
@@ -36,7 +36,7 @@ class UserRepositoryTest extends TestCase
 
     function testAddUserComNickNameExistente()
     {
-        $user = [
+        $user = (object) [
             'name' => 'walter',
             'nickname' => 'heisenberg',
             'deleted' => 0
@@ -128,5 +128,12 @@ class UserRepositoryTest extends TestCase
         $userRepo = new UserRepository($this->connection());
         $result = $userRepo->getUserByName('esse nome nao tem');
         $this->assertNull($result);
+    }
+
+    function testDeleteUserById()
+    {
+        $userRepo = new UserRepository($this->connection());
+        $result = $userRepo->deleteUserById(2);
+        $this->assertEquals(true, $result);
     }
 }

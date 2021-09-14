@@ -74,6 +74,13 @@ $router->post('/usuario/{id}', function ($params) {
     return $result;
 });
 
+$router->get('/usuario/del/{id}', function ($params) {
+    $id = $params[1];
+    $userController = new UserController();
+    $result = $userController->deleteUser($id);
+    return $result;
+});
+
 $result = $router->handler();
 
 if (!$result) {

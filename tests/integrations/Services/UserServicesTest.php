@@ -44,26 +44,28 @@ class UserServicesTest extends TestCase
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getUserById(74749);
-        $this->assertEquals($result, 'Usuário não encontrado');
+        $result = json_decode($result, true);
+        $this->assertEquals('Usuário não encontrado!', $result['warning']);
     }
 
     function testAddUser()
     {
         $paramsRandom = new ParamsRandom();
         $nickname = $paramsRandom->stringRandom();
-        $user = [
+        $user = (object) [
             'name' => 'testando',
             'nickname' => $nickname,
             'deleted' => 0
         ];
         $userServices = new UserServices($this->connection());
         $result = $userServices->addUser($user);
-        $this->assertEquals($result, true);
+        $result = json_decode($result, true);
+        $this->assertEquals('Usuário adicionado com sucesso!', $result['success']);
     }
 
     function testAddUserPassandoNicknameExistente()
     {
-        $user = [
+        $user = (object) [
             'name' => 'testando',
             'nickname' => 'batman',
             'deleted' => 0
@@ -85,7 +87,8 @@ class UserServicesTest extends TestCase
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getUserByNickname('esse nao tem');
-        $this->assertEquals('Usuario nao encontrado', $result);
+        $result = json_decode($result, true);
+        $this->assertEquals('Usuário não encontrado!', $result['warning']);
     }
 
     function testGetUserByName()
@@ -100,12 +103,13 @@ class UserServicesTest extends TestCase
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getUserByName('esse nao tem');
-        $this->assertEquals('Usuario nao encontrado', $result);
+        $result = json_decode($result, true);
+        $this->assertEquals('Usuário não encontrado!', $result['warning']);
     }
 
     function testEditUserByIdComUmParametro()
     {
-        $data = [
+        $data = (object) [
             'deleted' => 1
         ];
         $id = 2;
@@ -116,7 +120,7 @@ class UserServicesTest extends TestCase
 
     function testEditUserByIdComMaisDeUmParametro()
     {
-        $data = [
+        $data = (object) [
             'name' => 'Patrick Jane',
             'deleted' => 1
         ];
@@ -128,12 +132,19 @@ class UserServicesTest extends TestCase
 
     function testEditUserByIdPassandoNickNameExistente()
     {
-        $data = [
+        $data = (object) [
             'nickname' => 'brunoribeiro'
         ];
         $id = 2;
         $userServices = new UserServices($this->connection());
         $this->expectExceptionMessage('Erro ao editar usuário no DB SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry');
         $userServices->editUserById($id, $data);
+    }
+
+    function testeDeleteUserById()
+    {
+        $userServices = new UserServices($this->connection());
+        $result = $userServices->deleteUserById(2);
+        $this->assertEquals(true, $result);
     }
 }

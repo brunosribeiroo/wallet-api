@@ -15,14 +15,14 @@ class User {
 
     public function setName($name)
     {
-        if(strlen($name) < 3) throw new Error('Nome inválido, tente com mais caractéres');
+        if(strlen($name) < 3) throw new Error('Nome inválido, tente com mais caracteres');
         $this->name = $name;
         return true;
     }
 
     public function setNickName($nick)
     {
-        if(strlen($nick) < 3) throw new Error('Nickname inválido, tente com mais caractéres');
+        if(strlen($nick) < 3) throw new Error('Nickname inválido, tente com mais caracteres');
         $this->nickname = $nick;
         return true;
     }

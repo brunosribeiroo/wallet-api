@@ -27,7 +27,7 @@ class UserController
             $getUsers = $userServices->getAllUsers();
             return $getUsers;
         } catch (Error $error) {
-            return 'Erro ao buscar todos os usuários.';
+            return json_encode(['error' => 'Erro ao buscar todos os usuários.']);
         }
     }
 
@@ -38,7 +38,7 @@ class UserController
             $getUser = $userServices->getUserById($id);
             return $getUser;
         } catch (Error $error) {
-            return 'Erro ao buscar usuário por ID.';
+            return json_encode(['error' => 'Erro ao buscar usuário por ID.']);
         }
     }
 
@@ -49,7 +49,7 @@ class UserController
             $getUser = $userServices->getUserByNickname($nickname);
             return $getUser;
         } catch (Error $error) {
-            return 'Erro ao buscar usuário por nickname.';
+            return json_encode(['error' => 'Erro ao buscar usuário por nickname.']);
         }
     }
 
@@ -60,7 +60,7 @@ class UserController
             $getUser = $userServices->getUserByName($name);
             return $getUser;
         } catch (Error $error) {
-            return 'Erro ao buscar usuário por nome.';
+            return json_encode(['error' => 'Erro ao buscar usuário por nome.']);
         }
     }
 
@@ -74,10 +74,13 @@ class UserController
             $addUser = $userServices->addUser($user);
             return $addUser;
         } catch (Error $error) {
+            if(strpos($error, 'tente com mais caracteres')) {
+                return json_encode(['warning' => 'Nome ou Nickname muito curto, é necessário no mínimo 3 caracteres.']);
+            }
             if(strpos($error, 'Duplicate entry')) {
-                return 'Usuário já cadastrado, tente com outro nickname.';
+                return json_encode(['warning' => 'Usuário já cadastrado, tente com outro nickname.']);
             } else {
-                return 'Erro ao cadastrar usuário';
+                return json_encode(['error' => 'Erro ao cadastrar usuário']);
             }
         }
     }
@@ -86,10 +89,28 @@ class UserController
     {
         try{
             $userServices = new UserServices($this->db);
-            $userServices->editUserById($id, $data);
-            return 'Usuário editado com sucesso';
+            $user = new User();
+            $user->setName($data['name']);
+            $user->setNickName($data['nickname']);
+            $userServices->editUserById($id, $user);
+            return json_encode(['success' => 'Usuário editado com sucesso']);
         } catch (Error $error) {
-            return 'Erro ao editar usuário.';
+            if(strpos($error, 'Duplicate entry')) {
+                return json_encode(['warning' => 'Usuário já cadastrado, tente com outro nickname.']);
+            } else {
+                return json_encode(['error' => 'Erro ao editar usuário']);
+            }
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        try{
+            $userServices = new UserServices($this->db);
+            $userServices->deleteUserById($id);
+            return json_encode(['success' => 'Usuário excluído com sucesso.']);
+        } catch (Error $error) {
+            return json_encode(['error' => 'Erro ao excluir usuário.']);
         }
     }
 }

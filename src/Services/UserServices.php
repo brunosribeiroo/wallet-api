@@ -28,7 +28,7 @@ class UserServices
         try{
             $userRepo = new UserRepository($this->db);
             $result = $userRepo->getUserById($id);
-            if($result == null) return 'Usuário não encontrado';
+            if($result == null) return json_encode(['warning' => 'Usuário não encontrado!']);
             return json_encode($result);
         } catch (Error $error) {
             throw new Error($error);
@@ -40,7 +40,7 @@ class UserServices
         try{
             $userRepo = new UserRepository($this->db);
             $userRepo->addUser($user);
-            return 'Usuário adicionado com sucesso!';
+            return json_encode(['success' => 'Usuário adicionado com sucesso!']);
         } catch (Error $error) {
             throw new Error($error);
         }
@@ -51,7 +51,7 @@ class UserServices
         try{
             $userRepo = new UserRepository($this->db);
             $result = $userRepo->getUserByNickname($nick);
-            if($result == null) return 'Usuario nao encontrado';
+            if($result == null) return json_encode(['warning' => 'Usuário não encontrado!']);
             return json_encode($result);
         } catch (Error $error) {
             throw new Error($error);
@@ -63,20 +63,32 @@ class UserServices
         try{
             $userRepo = new UserRepository($this->db);
             $result = $userRepo->getUserByName($name);
-            if($result == null) return 'Usuario nao encontrado';
+            if($result == null) return json_encode(['warning' => 'Usuário não encontrado!']);
             return json_encode($result);
         } catch (Error $error){
             throw new Error($error);
         }
     }
 
-    public function editUserById($id, $data)
+    public function editUserById($id, $user)
+    {
+        try{
+            $user = (array) $user;
+            $userRepo = new UserRepository($this->db);
+            $result = $userRepo->editUserById($id, $user);
+            return $result;
+        } catch (Error $error){
+            throw new Error($error);
+        }
+    }
+
+    public function deleteUserById($id)
     {
         try{
             $userRepo = new UserRepository($this->db);
-            $result = $userRepo->editUserById($id, $data);
+            $result = $userRepo->deleteUserById($id);
             return $result;
-        } catch (Error $error){
+        } catch (Error $error) {
             throw new Error($error);
         }
     }
