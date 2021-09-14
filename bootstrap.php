@@ -32,15 +32,52 @@ $router->get('/', function () {
     return '<h1>Bem vindo à Wallet-API</h1>';
 });
 
-$router->get('/todos-usuarios', function () {
-    $conn = new DBConnection(
-        $_ENV['DB_HOST'],
-        $_ENV['DB_DATABASE'],
-        $_ENV['DB_USER'],
-        $_ENV['DB_PASS']
-    );
-    $userController = new UserController($conn);
+$router->get('/usuarios', function () {
+    $userController = new UserController();
     $result = $userController->getAllUsers();
+    return $result;
+});
+
+$router->get('/usuario/{id}', function ($params) {
+    $id = $params[1];
+    $userController = new UserController();
+    $result = $userController->getUserById($id);
+    return $result;
+});
+
+$router->get('/usuario/nickname/{nickname}', function ($params) {
+    $nickname = $params[1];
+    $userController = new UserController();
+    $result = $userController->getUserByNickname($nickname);
+    return $result;
+});
+
+$router->get('/usuario/nome/{name}', function ($params) {
+    $name = $params[1];
+    $userController = new UserController();
+    $result = $userController->getUserByName($name);
+    return $result;
+});
+
+$router->post('/usuario', function () {
+    $params = $_POST;
+    $userController = new UserController();
+    $result = $userController->addUser($params);
+    return $result;
+});
+
+$router->post('/usuario/{id}', function ($params) {
+    $id = $params[1];
+    $data = $_POST;
+    $userController = new UserController();
+    $result = $userController->editUser($id, $data);
+    return $result;
+});
+
+$router->get('/usuario/del/{id}', function ($params) {
+    $id = $params[1];
+    $userController = new UserController();
+    $result = $userController->deleteUser($id);
     return $result;
 });
 
@@ -52,4 +89,5 @@ if (!$result) {
     die();
 }
 
-echo $result();
+echo $result($router->getParams());
+// echo $result();

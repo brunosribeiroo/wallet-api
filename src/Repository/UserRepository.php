@@ -18,7 +18,7 @@ class UserRepository
         try{
             $query = 'INSERT INTO users (name, nickname, deleted) VALUES (?,?,?)';
             $stmt = $this->db->get()->prepare($query);
-            $stmt->execute([$user['name'], $user['nickname'], $user['deleted']]);
+            $stmt->execute([$user->name, $user->nickname, $user->deleted]);
             return true;
         } catch(PDOException $e){
             throw new Error('Erro ao adicionar usuário no DB ' . $e->getMessage());
@@ -43,7 +43,7 @@ class UserRepository
             $stmt->execute($values);
             return true;
         } catch(PDOException $e){
-                throw new Error('Erro ao editar usuário no DB ' . $e->getMessage());
+            throw new Error('Erro ao editar usuário no DB ' . $e->getMessage());
         }
     }
 
@@ -99,6 +99,18 @@ class UserRepository
             return $result;
         } catch (PDOException $e) {
             throw new Error('Erro ao buscar o usuário por nome no DB ' . $e->getMessage());
+        }
+    }
+
+    public function deleteUserById($id)
+    {
+        try{
+            $query = 'UPDATE users SET deleted = 1 WHERE id = ?';
+            $stmt = $this->db->get()->prepare($query);
+            $stmt->execute([$id]);
+            return true;
+        } catch (PDOException $e) {
+            throw new Error('Erro ao exclur usuário por ID no DB ' . $e->getMessage());
         }
     }
 }
