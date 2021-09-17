@@ -1,5 +1,6 @@
 <?php
 
+use Brunosribeiro\WalletApi\Controllers\TransactionController;
 use Brunosribeiro\WalletApi\Controllers\UserController;
 use Brunosribeiro\WalletApi\Router;
 use Brunosribeiro\WalletApi\Infra\DBConnection;
@@ -74,10 +75,17 @@ $router->post('/usuario/{id}', function ($params) {
     return $result;
 });
 
-$router->get('/usuario/del/{id}', function ($params) {
+$router->delete('/usuario/del/{id}', function ($params) {
     $id = $params[1];
     $userController = new UserController();
     $result = $userController->deleteUser($id);
+    return $result;
+});
+
+$router->post('/addcredit', function () {
+    $data = $_POST;
+    $transactionController = new TransactionController();
+    $result = $transactionController->addTransactionCredit($data);
     return $result;
 });
 

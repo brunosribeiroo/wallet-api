@@ -21,8 +21,8 @@ class TransactionServicesTest extends TestCase
 
     function testAddTransactionCredit()
     {
-        $transaction = [
-            'id_user' => 2,
+        $transaction = (object) [
+            'id_user' => 3,
             'type' => 'entrada',
             'value' => 100.00
         ];
@@ -31,58 +31,72 @@ class TransactionServicesTest extends TestCase
         $this->assertEquals(true, $result);
     }
 
+    function testeAddTransactionCreditComUsuarioDeletado()
+    {
+        $transaction = (object) [
+            'id_user' => 2,
+            'type' => 'entrada',
+            'value' => 100.00
+        ];
+        $transactionServices = new TransactionServices($this->connection());
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $transactionServices->addTransactionCredit($transaction);
+    }
+
     function testeAddTransactionCreditPassandoValorIncorreto()
     {
-        $transaction = [
-            'id_user' => 2,
+        $transaction = (object) [
+            'id_user' => 3,
             'type' => 'entrada',
             'value' => 'teste'
         ];
         $transactionServices = new TransactionServices($this->connection());
-        $this->expectExceptionMessage('SQLSTATE[HY000]: General error: 1366 Incorrect decimal value');
+        $this->expectErrorMessage('SQLSTATE[HY000]: General error: 1366 Incorrect decimal value');
         $transactionServices->addTransactionCredit($transaction);
     }
 
     function testeAddTransactionCreditPassandoKeyIncorreta()
     {
-        $transaction = [
-            'id_user' => 2,
+        $transaction = (object) [
+            'id_user' => 3,
             'type' => 'entrada',
             'teste' => 100.00
         ];
         $transactionServices = new TransactionServices($this->connection());
         $this->expectError();
-        $transactionServices->addTransactionCredit($transaction);
-    }
-
-    function testeAddTransactionCreditPassandoTipoIncorreto()
-    {
-        $transaction = [
-            'id_user' => 2,
-            'type' => 'saida',
-            'value' => 100.00
-        ];
-        $transactionServices = new TransactionServices($this->connection());
-        $this->expectExceptionMessage('Tipo de transação incorreta');
         $transactionServices->addTransactionCredit($transaction);
     }
 
     function testAddTransactionDebit()
     {
-        $transaction = [
-            'id_user' => 2,
+        $transaction = (object) [
+            'id_user' => 3,
             'type' => 'saida',
             'value' => 100.00
         ];
         $transactionServices = new TransactionServices($this->connection());
         $result = $transactionServices->addTransactionDebit($transaction);
+        echo $result;
         $this->assertEquals(true, $result);
+    }
+
+    
+    function testeAddTransactionDebitComUsuarioDeletado()
+    {
+        $transaction = (object) [
+            'id_user' => 2,
+            'type' => 'saida',
+            'value' => 100.00
+        ];
+        $transactionServices = new TransactionServices($this->connection());
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $transactionServices->addTransactionDebit($transaction);
     }
 
     function testeAddTransactionDebitPassandoKeyIncorreta()
     {
-        $transaction = [
-            'id_user' => 2,
+        $transaction = (object) [
+            'id_user' => 3,
             'type' => 'saida',
             'teste' => 100.00
         ];
@@ -91,21 +105,9 @@ class TransactionServicesTest extends TestCase
         $transactionServices->addTransactionDebit($transaction);
     }
 
-    function testeAddTransactionDebitPassandoTipoIncorreto()
-    {
-        $transaction = [
-            'id_user' => 2,
-            'type' => 'entrada',
-            'value' => 100.00
-        ];
-        $transactionServices = new TransactionServices($this->connection());
-        $this->expectExceptionMessage('Tipo de transação incorreta');
-        $transactionServices->addTransactionDebit($transaction);
-    }
-
     function testAddTransactionDebitComSaldoInsuficiente()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 1,
             'type' => 'saida',
             'value' => 900.00
@@ -113,5 +115,49 @@ class TransactionServicesTest extends TestCase
         $transactionServices = new TransactionServices($this->connection());
         $this->expectExceptionMessage('Transação negada! Seu saldo é insuficiente para essa transação. Saldo atual:');
         $transactionServices->addTransactionDebit($transaction);
+    }
+
+    function testeGetBalanceByid()
+    {
+        $id = 1;
+        $transactionServices = new TransactionServices($this->connection());
+        $result = $transactionServices->getBalanceById($id);
+        $result = json_decode($result, true);
+        $this->assertEquals('Bruno', $result['name']);
+    }
+
+    function testeGetBalanceByidComUsuarioExcluido()
+    {
+        $id = 2;
+        $transactionServices = new TransactionServices($this->connection());
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $transactionServices->getBalanceById($id);
+    }
+
+    function testeGetBalanceByidComIdInexistente()
+    {
+        $id = 9494948987;
+        $transactionServices = new TransactionServices($this->connection());
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $transactionServices->getBalanceById($id);
+    }
+
+    
+    function testeGetBalanceByidComSaldoZerado()
+    {
+        $id = 5;
+        $transactionServices = new TransactionServices($this->connection());
+        $result = $transactionServices->getBalanceById($id);
+        $result = json_decode($result, true);
+        $this->assertEquals('0.00', $result['saldo']);
+    }
+
+    function testeGetBalanceByidComSaldoNegativo()
+    {
+        $id = 6;
+        $transactionServices = new TransactionServices($this->connection());
+        $result = $transactionServices->getBalanceById($id);
+        $result = json_decode($result, true);
+        $this->assertEquals('saldonegativo', $result['nickname']);
     }
 }

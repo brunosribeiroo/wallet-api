@@ -3,6 +3,7 @@
 namespace Brunosribeiro\WalletApi\Models;
 
 use Error;
+use Exception;
 
 class Transaction
 {
@@ -20,17 +21,17 @@ class Transaction
         return $types;
     }
 
-    public function setUser($user)
+    public function setIdUser($id)
     {
-        if(strlen($user) < 3) throw new Error('Usuário inválido');
-        $this->id_user = $user;
+        if(!is_numeric($id)) throw new Exception('ID do usuário inválido');
+        $this->id_user = $id;
         return true;
     }
 
     public function setType($type)
     {
         $types = $this->getTypes();
-        if(!in_array($type, $types)) throw new Error('Tipo de transação inválida');
+        if(!in_array($type, $types)) throw new Exception('Tipo de transação inválida');
         $this->type = $type;
         return true;
     }
@@ -38,9 +39,9 @@ class Transaction
     public function setValue($value)
     {
         $regex = '/[a-zA-Z-+]+|,/';
-        if(preg_match_all($regex, $value) == 1) throw new Error('Valor inválido, insira no formato 100.00');
-        if($value <= 0) throw new Error('Valor inválido, insira um valor maior que 0');
-        $formattedValue = number_format($value, '2', ',', '');
+        if(preg_match_all($regex, $value) == 1) throw new Exception('Valor inválido, insira no formato 100.00');
+        if($value <= 0) throw new Exception('Valor inválido, insira um valor maior que 0');
+        $formattedValue = number_format($value, '2', '.', '');
         $this->value = $formattedValue;
         return true;
     }

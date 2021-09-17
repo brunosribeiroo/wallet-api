@@ -16,7 +16,7 @@ class UserTest extends TestCase
         $user = new User();
         $user->setName('Teste');
         $user->setNickName('testando');
-        $user->setDeleted(true);
+        $user->setDeleted(0);
         $this->assertEquals('Teste', $user->name);
     }
 

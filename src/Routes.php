@@ -26,6 +26,11 @@ class Router
         $this->add('POST', $route, $action);
     }
 
+    public function delete(string $route, callable $action)
+    {
+        $this->add('DELETE', $route, $action);
+    }
+
     public function add(string $method, string $route, callable $action)
     {
         $this->routes[$method][$route] = $action;

@@ -3,6 +3,7 @@
 namespace Brunosribeiro\WalletApi\Models;
 
 use Error;
+use Exception;
 
 class User {
 
@@ -15,14 +16,14 @@ class User {
 
     public function setName($name)
     {
-        if(strlen($name) < 3) throw new Error('Nome inválido, tente com mais caracteres');
+        if(strlen($name) < 3) throw new Exception('Nome inválido, é necessário no mínimo 3 caracteres');
         $this->name = $name;
         return true;
     }
 
     public function setNickName($nick)
     {
-        if(strlen($nick) < 3) throw new Error('Nickname inválido, tente com mais caracteres');
+        if(strlen($nick) < 3) throw new Exception('Nickname inválido, é necessário no mínimo 3 caracteres');
         $this->nickname = $nick;
         return true;
     }
@@ -33,7 +34,7 @@ class User {
             $this->deleted = $deleted;
             return true;
         } else {
-            throw new Error('Parâmetro inválido ao deletar, informe true ou false');
+            throw new Exception('Parâmetro inválido ao deletar, informe true ou false');
         }
     }
 

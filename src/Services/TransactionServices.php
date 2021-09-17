@@ -2,6 +2,7 @@
 
 namespace Brunosribeiro\WalletApi\Services;
 use Brunosribeiro\WalletApi\Repository\TransactionRepository;
+use Brunosribeiro\WalletApi\Repository\UserRepository;
 use Error;
 use Exception;
 
@@ -15,7 +16,9 @@ class TransactionServices
     public function addTransactionCredit($transaction)
     {
         try{
-            if($transaction['type'] != 'entrada') throw new Exception('Tipo de transação incorreta');
+            $userRepo = new UserRepository($this->db);
+            $user = $userRepo->getUserById($transaction->id_user);
+            if($user == null) throw new Exception('Usuário não encontrado');
             $transactionRepo = new TransactionRepository($this->db);
             $result = $transactionRepo->addTransactionCredit($transaction);
             return $result;
@@ -27,13 +30,27 @@ class TransactionServices
     public function addTransactionDebit($transaction)
     {
         try{
-            if($transaction['type'] != 'saida') throw new Exception('Tipo de transação incorreta');
+            $userRepo = new UserRepository($this->db);
+            $user = $userRepo->getUserById($transaction->id_user);
+            if($user == null) throw new Exception('Usuário não encontrado');
             $transactionRepo = new TransactionRepository($this->db);
-            $balance = $transactionRepo->getBalanceById($transaction['id_user']);
-            if($balance['total'] < $transaction['value']) throw new Exception('Transação negada! Seu saldo é insuficiente para essa transação. Saldo atual: R$' . $balance['total']);
+            $balance = $transactionRepo->getBalanceById($transaction->id_user);
+            if($balance['saldo'] < $transaction->value) throw new Exception('Transação negada! Seu saldo é insuficiente para essa transação. Saldo atual: R$' . $balance['saldo']);
             $result = $transactionRepo->addTransactionDebit($transaction);
             return $result;
         } catch (Error $error){
+            throw new Error($error);
+        }
+    }
+
+    public function getBalanceById($id)
+    {
+        try{
+            $transactionRepo = new TransactionRepository($this->db);
+            $result = $transactionRepo->getBalanceById($id);
+            if($result == null) throw new Exception('Usuário não encontrado');
+            return json_encode($result);
+        } catch (Error $error) {
             throw new Error($error);
         }
     }
