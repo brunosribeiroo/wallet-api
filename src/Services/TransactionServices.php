@@ -42,16 +42,4 @@ class TransactionServices
             throw new Error($error);
         }
     }
-
-    public function getBalanceById($id)
-    {
-        try{
-            $transactionRepo = new TransactionRepository($this->db);
-            $result = $transactionRepo->getBalanceById($id);
-            if($result == null) throw new Exception('Usuário não encontrado');
-            return json_encode($result);
-        } catch (Error $error) {
-            throw new Error($error);
-        }
-    }
 }

@@ -11,7 +11,7 @@ use Exception;
 class TransactionController
 {
 
-    public function __construct()
+    private function __construct()
     {   
         $this->db = new DBConnection(
             $_ENV['DB_HOST'],
@@ -34,7 +34,7 @@ class TransactionController
         } catch (Error $error) {
             return json_encode(['error' => 'Erro ao adicionar transação de crédito.']);
         } catch (Exception $exception) {
-            return json_encode(['exception' => $exception->getMessage()]);
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 
@@ -51,7 +51,7 @@ class TransactionController
         } catch (Error $error) {
             return json_encode(['error' => 'Erro ao adicionar transação de débito.']);
         } catch (Exception $exception) {    
-            return json_encode(['exception' => $exception->getMessage()]);
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 }

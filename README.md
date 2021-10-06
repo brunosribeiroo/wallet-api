@@ -25,6 +25,8 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 - Adicionar transação de crédito: POST [/addcredit](http://localhost:9000/addcredit) - body: {id_user: 'id', value: '100.00'}
 - Adicionar transação de débito: POST [/adddebit](http://localhost:9000/adddebit) - body: {id_user: 'id', value: '100.00'}
 
+### SALDO
+- Consultar saldo: GET [/balance/ID](http://localhost:9000/balance/1)
  -------------------------------------------------------------------------------------------------------
 
 ## Configurando Ambiente 
