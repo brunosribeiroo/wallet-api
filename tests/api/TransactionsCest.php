@@ -27,7 +27,7 @@ class TransactionsCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/addcredit', $transaction);
         $I->seeResponseCodeIs(200);
-        $I->seeResponseContainsJson(['exception' => 'Usuário não encontrado']);
+        $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
 
     public function testAddTransactionCreditComIdInexistente(ApiTester $I)
@@ -39,7 +39,7 @@ class TransactionsCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/addcredit', $transaction);
         $I->seeResponseCodeIs(200);
-        $I->seeResponseContainsJson(['exception' => 'Usuário não encontrado']);
+        $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
 
     public function testAddTransactionDebit(ApiTester $I)
@@ -61,7 +61,7 @@ class TransactionsCest
         ];
         $I->sendPost('/adddebit', $transaction);
         $I->seeResponseCodeIs(200);
-        $I->seeResponseContainsJson(['exception' => 'Usuário não encontrado']);
+        $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
 
     public function testAddTransactionDebitComIdInexistente(ApiTester $I)
@@ -72,7 +72,7 @@ class TransactionsCest
         ];
         $I->sendPost('/adddebit', $transaction);
         $I->seeResponseCodeIs(200);
-        $I->seeResponseContainsJson(['exception' => 'Usuário não encontrado']);
+        $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
 
     public function testAddTransactionDebitComISaldoInsuficiente(ApiTester $I)
@@ -83,6 +83,6 @@ class TransactionsCest
         ];
         $I->sendPost('/adddebit', $transaction);
         $I->seeResponseCodeIs(200);
-        $I->seeResponseMatchesJsonType(['exception' => 'string']);
+        $I->seeResponseMatchesJsonType(['warning' => 'string']);
     }
 }

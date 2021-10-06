@@ -116,48 +116,4 @@ class TransactionServicesTest extends TestCase
         $this->expectExceptionMessage('Transação negada! Seu saldo é insuficiente para essa transação. Saldo atual:');
         $transactionServices->addTransactionDebit($transaction);
     }
-
-    function testeGetBalanceByid()
-    {
-        $id = 1;
-        $transactionServices = new TransactionServices($this->connection());
-        $result = $transactionServices->getBalanceById($id);
-        $result = json_decode($result, true);
-        $this->assertEquals('Bruno', $result['name']);
-    }
-
-    function testeGetBalanceByidComUsuarioExcluido()
-    {
-        $id = 2;
-        $transactionServices = new TransactionServices($this->connection());
-        $this->expectExceptionMessage('Usuário não encontrado');
-        $transactionServices->getBalanceById($id);
-    }
-
-    function testeGetBalanceByidComIdInexistente()
-    {
-        $id = 9494948987;
-        $transactionServices = new TransactionServices($this->connection());
-        $this->expectExceptionMessage('Usuário não encontrado');
-        $transactionServices->getBalanceById($id);
-    }
-
-    
-    function testeGetBalanceByidComSaldoZerado()
-    {
-        $id = 5;
-        $transactionServices = new TransactionServices($this->connection());
-        $result = $transactionServices->getBalanceById($id);
-        $result = json_decode($result, true);
-        $this->assertEquals('0.00', $result['saldo']);
-    }
-
-    function testeGetBalanceByidComSaldoNegativo()
-    {
-        $id = 6;
-        $transactionServices = new TransactionServices($this->connection());
-        $result = $transactionServices->getBalanceById($id);
-        $result = json_decode($result, true);
-        $this->assertEquals('saldonegativo', $result['nickname']);
-    }
 }

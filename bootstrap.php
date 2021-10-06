@@ -1,5 +1,6 @@
 <?php
 
+use Brunosribeiro\WalletApi\Controllers\BalanceController;
 use Brunosribeiro\WalletApi\Controllers\TransactionController;
 use Brunosribeiro\WalletApi\Controllers\UserController;
 use Brunosribeiro\WalletApi\Router;
@@ -95,6 +96,14 @@ $router->post('/adddebit', function () {
     $result = $transactionController->addTransactionDebit($data);
     return $result;
 });
+
+$router->get('/balance/{id}', function ($params) {
+    $id = $params[1];
+    $balanceController = new BalanceController();
+    $result = $balanceController->getBalanceById($id);
+    return $result;
+});
+
 
 $result = $router->handler();
 

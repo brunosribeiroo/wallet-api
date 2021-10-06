@@ -90,21 +90,4 @@ class TransactionRepositoryTest extends TestCase
         $this->expectError();
         $transactionRepo->addTransactionDebit($transaction);
     }
-
-    function testGetBalanceById()
-    {
-        $transactionRepo = new TransactionRepository($this->connection());
-        $id = 1;
-        $result = $transactionRepo->getBalanceById($id);
-        $this->assertNotEmpty($result['name']);
-    }
-
-    function testGetBalanceByIdComIdInexistente()
-    {
-        $transactionRepo = new TransactionRepository($this->connection());
-        $id = 646489;
-        $result = $transactionRepo->getBalanceById($id);
-        echo $result;
-        $this->assertEmpty($result);
-    }
 }

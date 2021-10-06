@@ -11,7 +11,7 @@ use Exception;
 class UserController
 {
 
-    public function __construct()
+    private function __construct()
     {   
         $this->db = new DBConnection(
             $_ENV['DB_HOST'],
