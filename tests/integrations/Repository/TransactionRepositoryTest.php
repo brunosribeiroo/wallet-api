@@ -21,7 +21,7 @@ class TransactionRepositoryTest extends TestCase
 
     function testAddTrasactionCredit()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 2,
             'type' => 'entrada',
             'value' => 100.00
@@ -33,7 +33,7 @@ class TransactionRepositoryTest extends TestCase
 
     function testAddTransactionCreditPassandoValorIncorreto()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 2,
             'type' => 'entrada',
             'value' => 'teste'
@@ -45,7 +45,7 @@ class TransactionRepositoryTest extends TestCase
 
     function testAddTransactionCreditPassandoKeyIncorreta()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 2,
             'type' => 'entrada',
             'teste' => 100.00
@@ -57,7 +57,7 @@ class TransactionRepositoryTest extends TestCase
 
     function testAddTrasactionDebit()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 2,
             'type' => 'saida',
             'value' => 100.00
@@ -69,7 +69,7 @@ class TransactionRepositoryTest extends TestCase
 
     function testAddTransactionDebitPassandoValorIncorreto()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 2,
             'type' => 'saida',
             'value' => 'teste'
@@ -81,7 +81,7 @@ class TransactionRepositoryTest extends TestCase
 
     function testAddTransactionDebitPassandoKeyIncorreta()
     {
-        $transaction = [
+        $transaction = (object) [
             'id_user' => 2,
             'type' => 'saida',
             'teste' => 100.00
@@ -104,6 +104,7 @@ class TransactionRepositoryTest extends TestCase
         $transactionRepo = new TransactionRepository($this->connection());
         $id = 646489;
         $result = $transactionRepo->getBalanceById($id);
-        $this->assertEmpty($result['name']);
+        echo $result;
+        $this->assertEmpty($result);
     }
 }

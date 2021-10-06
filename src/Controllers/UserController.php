@@ -6,6 +6,7 @@ use Brunosribeiro\WalletApi\Infra\DBConnection;
 use Brunosribeiro\WalletApi\Models\User;
 use Brunosribeiro\WalletApi\Services\UserServices;
 use Error;
+use Exception;
 
 class UserController
 {
@@ -25,8 +26,9 @@ class UserController
         try{
             $userServices = new UserServices($this->db);
             $getUsers = $userServices->getAllUsers();
-            return $getUsers;
+            return json_encode(['success' => $getUsers]);
         } catch (Error $error) {
+            echo $error;
             return json_encode(['error' => 'Erro ao buscar todos os usuários.']);
         }
     }
@@ -36,9 +38,11 @@ class UserController
         try{
             $userServices = new UserServices($this->db);
             $getUser = $userServices->getUserById($id);
-            return $getUser;
+            return json_encode(['success' => $getUser]);
         } catch (Error $error) {
             return json_encode(['error' => 'Erro ao buscar usuário por ID.']);
+        } catch (Exception $exception) {
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 
@@ -47,9 +51,11 @@ class UserController
         try{
             $userServices = new UserServices($this->db);
             $getUser = $userServices->getUserByNickname($nickname);
-            return $getUser;
+            return json_encode(['success' => $getUser]);
         } catch (Error $error) {
             return json_encode(['error' => 'Erro ao buscar usuário por nickname.']);
+        } catch (Exception $exception) {
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 
@@ -58,9 +64,11 @@ class UserController
         try{
             $userServices = new UserServices($this->db);
             $getUser = $userServices->getUserByName($name);
-            return $getUser;
+            return json_encode(['success' => $getUser]);
         } catch (Error $error) {
             return json_encode(['error' => 'Erro ao buscar usuário por nome.']);
+        } catch (Exception $exception) {
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 
@@ -71,17 +79,16 @@ class UserController
             $user = new User();
             $user->setName($params['name']);
             $user->setNickName($params['nickname']);
-            $addUser = $userServices->addUser($user);
-            return $addUser;
+            $userServices->addUser($user);
+            return json_encode(['success' => 'Usuário adicionado com sucesso']);
         } catch (Error $error) {
-            if(strpos($error, 'tente com mais caracteres')) {
-                return json_encode(['warning' => 'Nome ou Nickname muito curto, é necessário no mínimo 3 caracteres.']);
-            }
             if(strpos($error, 'Duplicate entry')) {
                 return json_encode(['warning' => 'Usuário já cadastrado, tente com outro nickname.']);
             } else {
                 return json_encode(['error' => 'Erro ao cadastrar usuário']);
             }
+        } catch (Exception $exception) {
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 
@@ -100,6 +107,8 @@ class UserController
             } else {
                 return json_encode(['error' => 'Erro ao editar usuário']);
             }
+        } catch (Exception $exception) {
+            return json_encode(['warning' => $exception->getMessage()]);
         }
     }
 

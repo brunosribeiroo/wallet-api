@@ -29,7 +29,6 @@ class UserServicesTest extends TestCase
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getAllUsers();
-        $result = json_decode($result, true);
         $this->assertArrayHasKey('name', $result[0]);
     }
 
@@ -37,15 +36,14 @@ class UserServicesTest extends TestCase
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getUserById(1);
-        $this->assertJsonStringEqualsJsonString('{"id":"1","name":"Bruno","nickname":"brunoribeiro"}', $result);
+        $this->assertArrayHasKey('name', $result);
     }
 
     function testGetUserByIdPassandoIDInexistente()
     {
         $userServices = new UserServices($this->connection());
+        $this->expectExceptionMessage('Usuário não encontrado');
         $result = $userServices->getUserById(74749);
-        $result = json_decode($result, true);
-        $this->assertEquals('Usuário não encontrado!', $result['warning']);
     }
 
     function testAddUser()
@@ -59,8 +57,7 @@ class UserServicesTest extends TestCase
         ];
         $userServices = new UserServices($this->connection());
         $result = $userServices->addUser($user);
-        $result = json_decode($result, true);
-        $this->assertEquals('Usuário adicionado com sucesso!', $result['success']);
+        $this->assertEquals(true, $result);
     }
 
     function testAddUserPassandoNicknameExistente()
@@ -71,7 +68,7 @@ class UserServicesTest extends TestCase
             'deleted' => 0
         ];
         $userServices = new UserServices($this->connection());
-        $this->expectErrorMessage('Erro ao adicionar usuário no DB');
+        $this->expectErrorMessage('Erro ao adicionar usuário no DB SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry');
         $userServices->addUser($user);
     }
 
@@ -79,32 +76,28 @@ class UserServicesTest extends TestCase
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getUserByNickname('heisenberg');
-        $result = json_decode($result, true);
         $this->assertEquals('Heisenberg', $result['nickname']);
     }
 
     function testGetUserByNicknameComNicknameInexistente()
     {
         $userServices = new UserServices($this->connection());
-        $result = $userServices->getUserByNickname('esse nao tem');
-        $result = json_decode($result, true);
-        $this->assertEquals('Usuário não encontrado!', $result['warning']);
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $userServices->getUserByNickname('esse nao tem');
     }
 
     function testGetUserByName()
     {
         $userServices = new UserServices($this->connection());
         $result = $userServices->getUserByName('walter white');
-        $result = json_decode($result, true);
         $this->assertEquals('Walter White', $result[0]['name']);
     }
 
     function testGetUserByNameComNomeInexistente()
     {
         $userServices = new UserServices($this->connection());
-        $result = $userServices->getUserByName('esse nao tem');
-        $result = json_decode($result, true);
-        $this->assertEquals('Usuário não encontrado!', $result['warning']);
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $userServices->getUserByName('esse nao tem');
     }
 
     function testEditUserByIdComUmParametro()

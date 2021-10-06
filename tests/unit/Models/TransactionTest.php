@@ -11,24 +11,24 @@ class TransactionTest extends TestCase
     function testTransaction()
     {
         $transaction = new Transaction();
-        $transaction->setUser('Teste');
+        $transaction->setIdUser('1');
         $transaction->setType('entrada');
         $transaction->setValue('120.58');
-        $this->assertEquals('Teste', $transaction->id_user);
+        $this->assertEquals('1', $transaction->id_user);
     }
 
     function testSetUser()
     {
         $transaction = new Transaction();
-        $setUser = $transaction->setUser('Teste');
+        $setUser = $transaction->setIdUser('1');
         $this->assertEquals(true, $setUser);
     }
 
     function testSetUserComParametroInvalido()
     {
         $transaction = new Transaction();
-        $this->expectExceptionMessage('Usuário inválido');
-        $transaction->setUser('te');
+        $this->expectExceptionMessage('ID do usuário inválido');
+        $transaction->setIdUser('te');
     }
 
     function testSetType()

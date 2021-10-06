@@ -41,9 +41,11 @@ class iniciaDB
     
         'INSERT INTO users (id, name, nickname, deleted) VALUES
             (1, "Bruno", "brunoribeiro", 0),
-            (2, "Bruce", "batman", 0),
+            (2, "Bruce", "batman", 1),
             (3, "Walter White", "Heisenberg", 0),
-            (4, "User test API", "usertesteapi", 0)
+            (4, "User test API", "usertesteapi", 0),
+            (5, "Teste sem saldo", "testesemsaldo", 0),
+            (6, "Teste saldo negativo", "saldonegativo", 0);
         ',
         'INSERT INTO transactions_credit(id_user, type, value) VALUES
             (1, "entrada", 500.00),
@@ -57,7 +59,8 @@ class iniciaDB
             (1, "saida", 375.45),
             (1, "saida", 15.98),
             (2, "saida", 285.95),
-            (2, "saida", 52.87);
+            (2, "saida", 52.87),
+            (6, "saida", 100.89);
         '
     ];
 
