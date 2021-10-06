@@ -95,7 +95,6 @@ class RotasApiCest
     public function testAddUserComNicknameComPoucosCaracteres(ApiTester $I)
     {
         $paramsRandom = new ParamsRandom();
-        $nickname = $paramsRandom->stringRandom();
         $user = [
             'name' => 'teste api', 
             'nickname' => 'ab'

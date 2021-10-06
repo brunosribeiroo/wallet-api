@@ -89,6 +89,13 @@ $router->post('/addcredit', function () {
     return $result;
 });
 
+$router->post('/adddebit', function () {
+    $data = $_POST;
+    $transactionController = new TransactionController();
+    $result = $transactionController->addTransactionDebit($data);
+    return $result;
+});
+
 $result = $router->handler();
 
 if (!$result) {

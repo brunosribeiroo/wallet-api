@@ -36,6 +36,22 @@ class TransactionController
         } catch (Exception $exception) {
             return json_encode(['exception' => $exception->getMessage()]);
         }
+    }
 
+    public function addTransactionDebit($params)
+    {
+        try{
+            $transactionServices = new TransactionServices($this->db);
+            $transaction = new Transaction();
+            $transaction->setType('saida');
+            $transaction->setIdUser($params['id_user']);
+            $transaction->setValue($params['value']);
+            $transactionServices->addTransactionDebit($transaction);
+            return json_encode(['success' => 'Transação registrada com sucesso!']);
+        } catch (Error $error) {
+            return json_encode(['error' => 'Erro ao adicionar transação de débito.']);
+        } catch (Exception $exception) {    
+            return json_encode(['exception' => $exception->getMessage()]);
+        }
     }
 }

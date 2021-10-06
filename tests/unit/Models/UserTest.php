@@ -30,7 +30,7 @@ class UserTest extends TestCase
     function testSetNameComParametroInvalido()
     {
         $user = new User();
-        $this->expectExceptionMessage('Nome inválido, tente com mais caracteres');
+        $this->expectExceptionMessage('Nome inválido, é necessário no mínimo 3 caracteres');
         $user->setName('te');
     }
 
@@ -44,7 +44,7 @@ class UserTest extends TestCase
     function testSetNickNameComParametroInvalido()
     {
         $user = new User();
-        $this->expectExceptionMessage('Nickname inválido, tente com mais caracteres');
+        $this->expectExceptionMessage('Nickname inválido, é necessário no mínimo 3 caracteres');
         $user->setNickName('te');
     }
 

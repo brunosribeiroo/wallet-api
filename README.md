@@ -21,6 +21,10 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 - Editar usuário: GET [/usuario/del/ID](http://localhost:9000/usuario/del/2)
 - Excluir usuário: DELETE [/usuario/del/ID](http://localhost:9000/usuario/del/2)
 
+### TRANSACTIONS
+- Adicionar transação de crédito: POST [/addcredit](http://localhost:9000/addcredit) - body: {id_user: 'id', value: '100.00'}
+- Adicionar transação de débito: POST [/adddebit](http://localhost:9000/adddebit) - body: {id_user: 'id', value: '100.00'}
+
  -------------------------------------------------------------------------------------------------------
 
 ## Configurando Ambiente 
