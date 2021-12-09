@@ -75,7 +75,7 @@ class TransactionsCest
         $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
 
-    public function testAddTransactionDebitComISaldoInsuficiente(ApiTester $I)
+    public function testAddTransactionDebitComSaldoInsuficiente(ApiTester $I)
     {
         $transaction = [
             'id_user' => 3,

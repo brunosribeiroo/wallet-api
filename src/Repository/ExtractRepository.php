@@ -20,13 +20,13 @@ class ExtractRepository
             transactions_credit.created_at FROM users
             INNER JOIN transactions_credit
             ON users.id = transactions_credit.id_user 
-            WHERE users.id = ? AND users.deleted = 0 AND transactions_credit.created_at <= ? AND transactions_credit.created_at >= ?
+            WHERE users.id = ? AND users.deleted = 0 AND transactions_credit.created_at >= ? AND transactions_credit.created_at <= ?
             UNION ALL
-            SELECT users.name, users.nickname, transactions_debit.type, transactions_debit.value, 
+            SELECT users.name, users.nickname, transactions_debit.type, transactions_debit.value * -1, 
             transactions_debit.created_at FROM users
             INNER JOIN transactions_debit
             ON users.id = transactions_debit.id_user
-            WHERE users.id = ? AND users.deleted = 0 AND transactions_debit.created_at <= ? AND transactions_debit.created_at >= ?
+            WHERE users.id = ? AND users.deleted = 0 AND transactions_debit.created_at >= ? AND transactions_debit.created_at <= ?
             ORDER BY created_at';
             $stmt = $this->db->get()->prepare($query);
             $stmt->execute([$id, $initialDate, $finalDate, $id, $initialDate, $finalDate]);
