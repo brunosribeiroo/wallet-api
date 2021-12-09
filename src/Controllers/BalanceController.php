@@ -9,15 +9,14 @@ use Exception;
 
 class BalanceController
 {
-    private function connection()
-    {
-        $conn = new DBConnection(
+    public function __construct()
+    {   
+        $this->db = new DBConnection(
             $_ENV['DB_HOST'],
             $_ENV['DB_DATABASE'],
             $_ENV['DB_USER'],
             $_ENV['DB_PASS']
         );
-        return $conn;
     }
 
     public function getBalanceById($id)

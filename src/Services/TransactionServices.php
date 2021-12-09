@@ -1,6 +1,8 @@
 <?php
 
 namespace Brunosribeiro\WalletApi\Services;
+
+use Brunosribeiro\WalletApi\Repository\BalanceRepository;
 use Brunosribeiro\WalletApi\Repository\TransactionRepository;
 use Brunosribeiro\WalletApi\Repository\UserRepository;
 use Error;
@@ -33,9 +35,10 @@ class TransactionServices
             $userRepo = new UserRepository($this->db);
             $user = $userRepo->getUserById($transaction->id_user);
             if($user == null) throw new Exception('Usuário não encontrado');
-            $transactionRepo = new TransactionRepository($this->db);
-            $balance = $transactionRepo->getBalanceById($transaction->id_user);
+            $balanceRepo = new BalanceRepository($this->db);
+            $balance = $balanceRepo->getBalanceById($transaction->id_user);
             if($balance['saldo'] < $transaction->value) throw new Exception('Transação negada! Seu saldo é insuficiente para essa transação. Saldo atual: R$' . $balance['saldo']);
+            $transactionRepo = new TransactionRepository($this->db);
             $result = $transactionRepo->addTransactionDebit($transaction);
             return $result;
         } catch (Error $error){
