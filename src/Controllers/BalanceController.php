@@ -22,7 +22,7 @@ class BalanceController
     public function getBalanceById($id)
     {
         try{
-            $balanceServices = new BalanceServices($this->connection());
+            $balanceServices = new BalanceServices($this->db);
             $result = $balanceServices->getBalanceById($id);
             return json_encode(['success' => $result]);
         } catch (Error $error){

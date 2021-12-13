@@ -21,12 +21,12 @@ class ExtractRepositoryTest extends TestCase
 
     public function testPerPeriod()
     {
-        $id = 1;
+        $id = 3;
         $extractRepo = new ExtractRepository($this->connection());
-        $initialDate = date('Y-m-d');
-        $finalDate = date('Y-m-d', strtotime("-360 days",strtotime($initialDate))); 
+        $finalDate = date('Y-m-d');
+        $initialDate = date('Y-m-d', strtotime("-30 days",strtotime($finalDate))); 
         $result = $extractRepo->perPeriod($id, $initialDate, $finalDate);
-        $this->assertEquals('Bruno', $result[0]['name']);
+        $this->assertEquals('Walter White', $result[0]['name']);
     }
 
     public function testPerPeriodComIdInexistente()

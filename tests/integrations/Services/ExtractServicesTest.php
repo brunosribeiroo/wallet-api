@@ -19,29 +19,32 @@ class ExtractServicesTest extends TestCase
         return $conn;
     }
 
-    function testeLastThirtyDaysById()
+    function testeLastDaysById()
     {
         $id = 3;
+        $days = 30;
         $extractServices = new ExtractServices($this->connection());
-        $result = $extractServices->lastThirtyDaysById($id);
+        $result = $extractServices->lastDaysById($id, $days);
         $result = json_decode($result, true);
-        $this->assertEquals('Walter White', $result['name']);
+        $this->assertEquals('Walter White', $result['transacoes'][0]['name']);
     }
 
-    function testeLastThirtyDaysByIdComIDExcluido()
+    function testeLastDaysByIdComIDExcluido()
     {
         $id = 2;
+        $days = 30;
         $extractServices = new ExtractServices($this->connection());
         $this->expectExceptionMessage('Usuário não encontrado');
-        $extractServices->lastThirtyDaysById($id);
+        $extractServices->lastDaysById($id, $days);
     }
 
-    function testeLastThirtyDaysByIdComIDInexistente()
+    function testeLastDaysByIdComIDInexistente()
     {
         $id = 56444464;
+        $days = 30;
         $extractServices = new ExtractServices($this->connection());
         $this->expectExceptionMessage('Usuário não encontrado');
-        $extractServices->lastThirtyDaysById($id);
+        $extractServices->lastDaysById($id, $days);
     }
 
     function testePerPeriodById()

@@ -15,7 +15,7 @@ class ExtractServices
         $this->db = $db;
     }
 
-    public function lastThirtyDaysById($id)
+    public function lastDaysById($id, $days)
     {
         try{
             $extractRepo = new ExtractRepository($this->db);
@@ -23,10 +23,11 @@ class ExtractServices
             $user = $userRepo->getUserById($id);
             if($user == null) throw new Exception('Usuário não encontrado');
             $finalDate = date('Y-m-d');
-            $initialDate = date('Y-m-d', strtotime("-30 days")); 
+            $initialDate = date('Y-m-d 00:00:00', strtotime('-'.$days."days")); 
             $result = $extractRepo->perPeriod($id, $initialDate, $finalDate);
             if($result == null) throw new Exception('Sem transações registradas no período');
-            return json_encode($result[0]);
+            $sum = $this->sumExtract($result);
+            return json_encode(['transacoes' => $result, 'total' => $sum]);
         } catch (Error $error) {
             throw new Error($error);
         }
@@ -44,7 +45,6 @@ class ExtractServices
             $result = $extractRepo->perPeriod($id, $initialDate, $finalDate);
             if($result == null) throw new Exception('Sem transações registradas no período');
             $sum = $this->sumExtract($result);
-            echo $sum;
             return json_encode([ 'transacoes' => $result, 'total' => $sum]);
         } catch (Error $error) {
             throw new Error($error);
