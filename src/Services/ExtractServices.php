@@ -22,7 +22,7 @@ class ExtractServices
             $userRepo = new UserRepository($this->db);
             $user = $userRepo->getUserById($id);
             if($user == null) throw new Exception('Usuário não encontrado');
-            $finalDate = date('Y-m-d');
+            $finalDate = date('Y-m-d 23:59:00');
             $initialDate = date('Y-m-d 00:00:00', strtotime('-'.$days."days")); 
             $result = $extractRepo->perPeriod($id, $initialDate, $finalDate);
             if($result == null) throw new Exception('Sem transações registradas no período');

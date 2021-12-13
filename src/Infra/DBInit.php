@@ -53,14 +53,18 @@ class iniciaDB
             (1, "entrada", 220.50),
             (2, "entrada", 180.75),
             (2, "entrada", 197.55),
-            (2, "entrada", 1052.80);
+            (2, "entrada", 1052.80),
+            (3, "entrada", 875.75),
+            (3, "entrada", 982.90);
         ',
         'INSERT INTO transactions_debit (id_user, type, value) VALUES
             (1, "saida", 375.45),
             (1, "saida", 15.98),
             (2, "saida", 285.95),
             (2, "saida", 52.87),
-            (6, "saida", 100.89);
+            (6, "saida", 100.89),
+            (3, "saida", 10.99),
+            (3, "saida", 87.45);
         '
     ];
 
