@@ -2,7 +2,7 @@
 
 use Brunosribeiro\WalletApi\Helpers\ParamsRandom;
 
-class RotasApiCest
+class UsersCest
 {
     public function _before(ApiTester $I)
     {

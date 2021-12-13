@@ -1,6 +1,7 @@
 <?php
 
 use Brunosribeiro\WalletApi\Controllers\BalanceController;
+use Brunosribeiro\WalletApi\Controllers\ExtractController;
 use Brunosribeiro\WalletApi\Controllers\TransactionController;
 use Brunosribeiro\WalletApi\Controllers\UserController;
 use Brunosribeiro\WalletApi\Router;
@@ -101,6 +102,20 @@ $router->get('/balance/{id}', function ($params) {
     $id = $params[1];
     $balanceController = new BalanceController();
     $result = $balanceController->getBalanceById($id);
+    return $result;
+});
+
+$router->get('/extractlastdays/?', function ($params) {
+    $data = $_GET;
+    $extractController = new ExtractController();
+    $result = $extractController->getLastDaysById($data);
+    return $result;
+});
+
+$router->get('/extractperperiod/?', function ($params) {
+    $data = $_GET;
+    $extractController = new ExtractController();
+    $result = $extractController->getPerPeriodById($data);
     return $result;
 });
 

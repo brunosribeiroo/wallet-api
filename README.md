@@ -27,6 +27,10 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 
 ### SALDO
 - Consultar saldo: GET [/balance/ID](http://localhost:9000/balance/1)
+
+### EXTRATO
+- Consultar extrato últimos dias: GET [/extractlastdays/?id=&days=](http://localhost:9000/extractlastdays/?id=3&days=30)
+- Consultar extrato por período: GET [/extractperperiod/?id=&initialDate=&finalDate=](http://localhost:9000/extractperperiod/?id=3&initialDate=01/10/2021&finalDate=30/01/2022)
  -------------------------------------------------------------------------------------------------------
 
 ## Configurando Ambiente 
