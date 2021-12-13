@@ -27,7 +27,7 @@ class ExtractServices
             $result = $extractRepo->perPeriod($id, $initialDate, $finalDate);
             if($result == null) throw new Exception('Sem transações registradas no período');
             $sum = $this->sumExtract($result);
-            return json_encode(['transacoes' => $result, 'total' => $sum]);
+            return ['transacoes' => $result, 'total' => $sum];
         } catch (Error $error) {
             throw new Error($error);
         }
@@ -45,7 +45,7 @@ class ExtractServices
             $result = $extractRepo->perPeriod($id, $initialDate, $finalDate);
             if($result == null) throw new Exception('Sem transações registradas no período');
             $sum = $this->sumExtract($result);
-            return json_encode([ 'transacoes' => $result, 'total' => $sum]);
+            return ['transacoes' => $result, 'total' => $sum];
         } catch (Error $error) {
             throw new Error($error);
         }

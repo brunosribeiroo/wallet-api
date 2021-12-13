@@ -11,7 +11,7 @@ class BalanceCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendGet('/balance/1');
         $I->seeResponseCodeIs(200);
-        $I->seeResponseMatchesJsonType(['success' => 'string']);
+        $I->seeResponseMatchesJsonType(['success' => 'array']);
     }
 
     public function testGetBalanceByIdComIdInexistente(ApiTester $I)
@@ -35,7 +35,7 @@ class BalanceCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendGet('/balance/6');
         $I->seeResponseCodeIs(200);
-        $I->seeResponseMatchesJsonType(['success' => 'string']);
+        $I->seeResponseMatchesJsonType(['success' => 'array']);
     }
 
     public function testGetBalanceByIdComSaldoZerado(ApiTester $I)
@@ -43,6 +43,6 @@ class BalanceCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendGet('/balance/5');
         $I->seeResponseCodeIs(200);
-        $I->seeResponseMatchesJsonType(['success' => 'string']);
+        $I->seeResponseMatchesJsonType(['success' => 'array']);
     }
 }

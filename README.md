@@ -1,5 +1,5 @@
-# Wallet-api [EM DESENVOLVIMENTO]
-API de carteira online em PHP, que registra usuários, transações, e faz consulta de saldo e extrato por período.
+# Wallet-api 
+API de carteira online em PHP, que registra usuários, transações, e faz consulta de saldo, e extrato por período.
 
 ## Tecnologias/Ferramentas
 - PHP 7.4
@@ -12,14 +12,14 @@ API de carteira online em PHP, que registra usuários, transações, e faz consu
 
 ## Rotas
 ### USER
-- Buscar todos os usuários: GET [/usuarios](http://localhost:9000/usuarios)
-- Buscar usuário por ID: GET [/usuario/ID](http://localhost:9000/usuario/1)
-- Buscar usuário por Nickname: GET [/usuario/nickname/NICKNAME](http://localhost:9000/usuario/nickname/brunoribeiro)
-- Buscar usuário por Nome: GET [/usuario/nome/NOME](http://localhost:9000/usuario/name/bruno)
-- Adicionar usuário: POST [/usuario](http://localhost:9000/usuario) - body: {name: 'name', nickname: 'nickname'}
-- Editar usuário: POST [/usuario/ID](http://localhost:9000/usuario/1) - body: {name: 'name', nickname: 'nickname'}
-- Editar usuário: GET [/usuario/del/ID](http://localhost:9000/usuario/del/2)
-- Excluir usuário: DELETE [/usuario/del/ID](http://localhost:9000/usuario/del/2)
+- Buscar todos os usuários: GET [/users](http://localhost:9000/users)
+- Buscar usuário por ID: GET [/user/ID](http://localhost:9000/user/1)
+- Buscar usuário por Nickname: GET [/user/nickname/?nickname=](http://localhost:9000/user/nickname/?nickname=brunoribeiro)
+- Buscar usuário por Nome: GET [/user/name/?name=](http://localhost:9000/user/name/?name=bruno)
+- Adicionar usuário: POST [/user](http://localhost:9000/user) - body: {name: 'name', nickname: 'nickname'}
+- Editar usuário: POST [/user/ID](http://localhost:9000/user/1) - body: {name: 'name', nickname: 'nickname'}
+- Editar usuário: GET [/user/del/ID](http://localhost:9000/user/del/2)
+- Excluir usuário: DELETE [/user/del/ID](http://localhost:9000/user/del/2)
 
 ### TRANSACTIONS
 - Adicionar transação de crédito: POST [/addcredit](http://localhost:9000/addcredit) - body: {id_user: 'id', value: '100.00'}

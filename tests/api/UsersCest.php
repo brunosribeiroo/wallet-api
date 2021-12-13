@@ -11,7 +11,7 @@ class UsersCest
     public function testGetAllUsers(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuarios');
+        $I->sendGet('/users');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['success' => ['id' => 1]]);
     }
@@ -19,7 +19,7 @@ class UsersCest
     public function testGetUserById(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuario/1');
+        $I->sendGet('/user/1');
         $I->seeResponseCodeIs(200); 
         $I->seeResponseContainsJson(['success' => ['id' => '1']]);
     }
@@ -27,7 +27,7 @@ class UsersCest
     public function testGetUserByIdComIdInexistente(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuario/64449464');
+        $I->sendGet('/user/64449464');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
@@ -35,7 +35,7 @@ class UsersCest
     public function testGetUserByNickname(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuario/nickname/brunoribeiro');
+        $I->sendGet('/user/nickname/?nickname=brunoribeiro');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['success' => ['id' => '1']]);
     }
@@ -43,7 +43,7 @@ class UsersCest
     public function testGetUserByNicknameComNicknameInexistente(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuario/nickname/testenickname');
+        $I->sendGet('/user/nickname/?nickname=testenickname');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
@@ -51,7 +51,7 @@ class UsersCest
     public function testGetUserByName(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuario/nome/bruno');
+        $I->sendGet('/user/name/?name=bruno');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['success' => ['id' => '1']]);
     }
@@ -59,7 +59,7 @@ class UsersCest
     public function testGetUserByNameComNomeInexistente(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendGet('/usuario/nome/testederotas');
+        $I->sendGet('/user/name/?name=testederotas');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Usuário não encontrado']);
     }
@@ -73,7 +73,7 @@ class UsersCest
             'nickname' => $nickname
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario', $user);
+        $I->sendPost('/user', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['success' => 'Usuário adicionado com sucesso']);
     }
@@ -87,7 +87,7 @@ class UsersCest
             'nickname' => $nickname
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario', $user);
+        $I->sendPost('/user', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Nome inválido, é necessário no mínimo 3 caracteres']);
     }
@@ -100,7 +100,7 @@ class UsersCest
             'nickname' => 'ab'
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario', $user);
+        $I->sendPost('/user', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Nickname inválido, é necessário no mínimo 3 caracteres']);
     }
@@ -112,7 +112,7 @@ class UsersCest
             'nickname' => 'brunoribeiro'
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario', $user);
+        $I->sendPost('/user', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Usuário já cadastrado, tente com outro nickname.']);
     }
@@ -126,7 +126,7 @@ class UsersCest
             'nickname' => $nickname
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario/4', $user);
+        $I->sendPost('/user/4', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['success' => 'Usuário editado com sucesso']);
     }
@@ -138,7 +138,7 @@ class UsersCest
             'nickname' => 'brunoribeiro'
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario/4', $user);
+        $I->sendPost('/user/4', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Usuário já cadastrado, tente com outro nickname.']);
     }
@@ -150,7 +150,7 @@ class UsersCest
             'nickname' => 'teste'
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario/4', $user);
+        $I->sendPost('/user/4', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Nome inválido, é necessário no mínimo 3 caracteres']);
     }
@@ -162,7 +162,7 @@ class UsersCest
             'nickname' => 'ab'
         ];
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/usuario/4', $user);
+        $I->sendPost('/user/4', $user);
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['warning' => 'Nickname inválido, é necessário no mínimo 3 caracteres']);
     }
@@ -170,7 +170,7 @@ class UsersCest
     public function testDeleteUser(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendDelete('/usuario/del/2');
+        $I->sendDelete('/user/del/2');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson(['success' => 'Usuário excluído com sucesso.']);
     }

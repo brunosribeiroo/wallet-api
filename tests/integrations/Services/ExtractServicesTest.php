@@ -25,7 +25,6 @@ class ExtractServicesTest extends TestCase
         $days = 30;
         $extractServices = new ExtractServices($this->connection());
         $result = $extractServices->lastDaysById($id, $days);
-        $result = json_decode($result, true);
         $this->assertEquals('Walter White', $result['transacoes'][0]['name']);
     }
 
@@ -54,7 +53,6 @@ class ExtractServicesTest extends TestCase
         $initialDate = date('d/m/Y', strtotime("-30 days"));
         $extractServices = new ExtractServices($this->connection());
         $result = $extractServices->perPeriodById($id, $initialDate, $finalDate);
-        $result = json_decode($result, true);
         $this->assertEquals('Walter White', $result['transacoes'][0]['name']); 
     }
 

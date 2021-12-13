@@ -20,7 +20,7 @@ class BalanceServices
             $balanceRepo = new BalanceRepository($this->db);
             $result = $balanceRepo->getBalanceById($id);
             if($result == null) throw new Exception('Usuário não encontrado');
-            return json_encode($result);
+            return $result;
         } catch (Error $error) {
             throw new Error($error);
         }

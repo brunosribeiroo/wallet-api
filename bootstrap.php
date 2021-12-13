@@ -35,41 +35,41 @@ $router->get('/', function () {
     return '<h1>Bem vindo à Wallet-API</h1>';
 });
 
-$router->get('/usuarios', function () {
+$router->get('/users', function () {
     $userController = new UserController();
     $result = $userController->getAllUsers();
     return $result;
 });
 
-$router->get('/usuario/{id}', function ($params) {
+$router->get('/user/{id}', function ($params) {
     $id = $params[1];
     $userController = new UserController();
     $result = $userController->getUserById($id);
     return $result;
 });
 
-$router->get('/usuario/nickname/{nickname}', function ($params) {
-    $nickname = $params[1];
+$router->get('/user/nickname/?', function ($params) {
+    $nickname = $_GET['nickname'];
     $userController = new UserController();
     $result = $userController->getUserByNickname($nickname);
     return $result;
 });
 
-$router->get('/usuario/nome/{name}', function ($params) {
-    $name = $params[1];
+$router->get('/user/name/?', function ($params) {
+    $name = $_GET['name'];
     $userController = new UserController();
     $result = $userController->getUserByName($name);
     return $result;
 });
 
-$router->post('/usuario', function () {
+$router->post('/user', function () {
     $params = $_POST;
     $userController = new UserController();
     $result = $userController->addUser($params);
     return $result;
 });
 
-$router->post('/usuario/{id}', function ($params) {
+$router->post('/user/{id}', function ($params) {
     $id = $params[1];
     $data = $_POST;
     $userController = new UserController();
@@ -77,7 +77,7 @@ $router->post('/usuario/{id}', function ($params) {
     return $result;
 });
 
-$router->delete('/usuario/del/{id}', function ($params) {
+$router->delete('/user/del/{id}', function ($params) {
     $id = $params[1];
     $userController = new UserController();
     $result = $userController->deleteUser($id);

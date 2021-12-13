@@ -24,7 +24,6 @@ class BalanceServicesTest extends TestCase
         $id = 1;
         $balanceServices = new BalanceServices($this->connection());
         $result = $balanceServices->getBalanceById($id);
-        $result = json_decode($result, true);
         $this->assertEquals('Bruno', $result['name']);
     }
 
@@ -50,7 +49,6 @@ class BalanceServicesTest extends TestCase
         $id = 5;
         $balanceServices = new BalanceServices($this->connection());
         $result = $balanceServices->getBalanceById($id);
-        $result = json_decode($result, true);
         $this->assertEquals('0.00', $result['saldo']);
     }
 
@@ -59,7 +57,6 @@ class BalanceServicesTest extends TestCase
         $id = 6;
         $balanceServices = new BalanceServices($this->connection());
         $result = $balanceServices->getBalanceById($id);
-        $result = json_decode($result, true);
         $this->assertEquals('saldonegativo', $result['nickname']);
     }
 }
