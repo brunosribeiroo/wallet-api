@@ -8,7 +8,7 @@ use Brunosribeiro\WalletApi\Router;
 use Brunosribeiro\WalletApi\Infra\DBConnection;
 use Brunosribeiro\WalletApi\Infra\iniciaDB;
 
-require __DIR__ . '/vendor/autoload.php';
+require "vendor/autoload.php";
 
 $environment = require '../environment.php';
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__, $environment);

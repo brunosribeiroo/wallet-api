@@ -7,7 +7,7 @@
             "src/"
         ],
         "psr-4": {
-            "Brunosribeiro\\WalletApi\\": "src/"
+            "Brunosribeiro\\WalletApi\\": "/usr/src/myapp/src"
         }
     },
     "authors": [
